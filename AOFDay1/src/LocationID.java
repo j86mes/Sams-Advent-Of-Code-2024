@@ -18,7 +18,6 @@ public class LocationID {
 				listBuild.append(scanner.nextLine()).append(System.lineSeparator());
 			}
 			String list = listBuild.toString();
-			System.out.println(list);
 			
 			String[] arrayList = list.split("\\s+");
 			int[] intList = new int[arrayList.length];
@@ -50,8 +49,22 @@ public class LocationID {
 				}
 			}
 			
-			System.out.println("The result is: " + total);
-		
+			System.out.println("The result for test one is: " + total);
+			
+			
+//			Part 2
+			
+			int overallScore = 0;
+			for (int i=0; i<List1.size(); i++) {
+				int simScore = 0;
+				for(int j=0; j<List2.size();j++) {
+					if(List1.get(i).equals(List2.get(j))) {
+						simScore += 1;
+					}
+			}
+				overallScore += (List1.get(i) * simScore);
+		}
+			System.out.println("Test two Score: " + overallScore);
 		} catch (NumberFormatException e) {
 			System.out.println("IDIOT");
 			e.printStackTrace();
