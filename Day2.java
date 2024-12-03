@@ -38,6 +38,8 @@ public class Day2 {
 		}
 		
 		System.out.println(reports[1][1]);
+
+		System.out.println(reports.length + " reports");
 		
 		String[] reportStr = new String[reports.length];
 		
@@ -56,19 +58,38 @@ public class Day2 {
 //		
 		int total = 0;
 		
-		for(int i =0; i<List.size() - 1; i++) {
-			for(int j=0; j<List.get(i).length - 1; j++){
-				int diff = List.get(i)[j] - List.get(i)[j+1];
-				if(List.get(i)[j] > List.get(i)[j+1] && diff >=1 && diff <=3) {
-					total += 1;
-					continue;
-				} else if(List.get(i)[j] < List.get(i)[j+1]  && diff >=1 && diff <=3) {
-					total += 1;
-					continue;
+		for(int i =0; i<reports.length; i++) {
+			
+			boolean reportIncreasing = true;
+			boolean noUnsafesFound = true;
+
+			for(int j=0; j< reports[i].length - 1; j++){
+
+				int diff = Math.abs(reports[i][j] - reports[i][j+1]);
+				if(reports[i][j] > reports[i][j+1] && diff >=1 && diff <=3) {
+					if(j == 0){
+						reportIncreasing = true;
+					}
+					if(j > 0 && !reportIncreasing){
+						noUnsafesFound = false;
+					}
+				} else if(reports[i][j] < reports[i][j+1] && diff >=1 && diff <=3) {
+					if(j == 0){
+						reportIncreasing = false;
+					}
+					if(j > 0 && reportIncreasing){
+						noUnsafesFound = false;
+					}
 				} else {
-					System.out.println("List " + Arrays.toString(List.get(i)) + " is wrong");
-					total -= 1;
+					noUnsafesFound = false;
+					System.out.println("List " + Arrays.toString(reports[i]) + " is wrong");
+					// don't take away 1 from the total, just don't add a number to the safe count.
+					//total -= 1; 
+					
 				}
+			}
+			if(noUnsafesFound){
+				total += 1;
 			}
 		}
 		System.out.println(total);
